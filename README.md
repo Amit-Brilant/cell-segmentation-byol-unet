@@ -152,6 +152,43 @@ Post-processing offers a genuine trade-off. Assigning the predicted **edge** cla
 
 ---
 
+## Conclusions and future work
+
+**Conclusions**
+
+- **BYOL pretraining pays off.** UNet & BYOL and UNet & Other BYOL both reach a higher average SEG score than the plain UNet on both dataset types.
+- **Pretraining diversity matters.** Pretraining on a different and more complex dataset can produce better results, especially for smaller and simpler labeled sets, where it seems to offer a complementary feature representation.
+- **Training gets cheaper.** With a pretrained encoder most of the computational effort goes into the decoder alone, cutting training time and the number of epochs needed.
+- **Freeze, then unfreeze.** The most effective schedule was to update only the decoder for the first two-thirds of training and release the encoder for the last third.
+
+**Future work**
+
+- Pretrain BYOL on many varied unlabeled datasets containing different cell types, then fine-tune to a specific task. In complex segmentation problems this should improve flexibility by extracting a wider range of features.
+- Test the same pretraining recipe against more advanced segmentation backbones, such as ViT-based models.
+- Develop a loss function aligned with the SEG metric, weighting pixels by their contribution to the score with particular emphasis on edge pixels.
+
+---
+
+## Notes and known limitations
+
+This repository preserves the code as it was submitted for the course. A few things are worth flagging for anyone reading or reusing it:
+
+- **Double softmax.** `UNetDecoder.forward` applies `nn.Softmax` to its output, and the training loop then passes that output to `nn.CrossEntropyLoss`, which applies `log_softmax` internally. The results reported above were produced with this behavior, so it has been left in place rather than silently corrected.
+- **Loss weights.** The class weights default to `[0.15, 0.35, 0.4]` in the code, while the report describes `[0.2, 0.35, 0.45]`. The relative ordering, background < inside < edge, is the same in both.
+- **Reproducibility.** The original submission set no random seeds. A seed cell has been added to the notebook, but the reported numbers predate it and were produced from unseeded runs.
+- **Fixed input size.** The flattened encoder output dimension hardcodes a 512x512 input.
+- **Score ceiling.** SEG peaks around 100 labeled images and drops afterwards. See the [Results](#results) section for why.
+
+---
+
+## References
+
+1. Ronneberger, O., Fischer, P., & Brox, T. (2015). *U-Net: Convolutional Networks for Biomedical Image Segmentation.* [arXiv:1505.04597](https://arxiv.org/abs/1505.04597)
+2. Grill, J.-B., Strub, F., Altché, F., Tallec, C., Richemond, P. H., Buchatskaya, E., Doersch, C., Pires, B. A., Guo, Z. D., Azar, M. G., Piot, B., Kavukcuoglu, K., Munos, R., & Valko, M. (2020). *Bootstrap Your Own Latent: A New Approach to Self-Supervised Learning.* [arXiv:2006.07733](https://arxiv.org/abs/2006.07733)
+3. Cell Tracking Challenge, 2D datasets. https://celltrackingchallenge.net/2d-datasets/
+
+---
+
 ## Authors
 
 **Amit Barilant** and **Alon Finestein**

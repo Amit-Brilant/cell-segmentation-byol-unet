@@ -1,0 +1,8 @@
+# Versions reflect the Google Colab environment the project was developed on (August 2024).
+torch==2.4.0
+torchvision==0.19.0
+numpy==1.26.4
+scipy==1.13.1
+Pillow==10.4.0
+matplotlib==3.9.2
+opencv-python==4.10.0.84

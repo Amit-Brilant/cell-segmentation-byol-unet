@@ -1,0 +1,28 @@
+# Report PDF and the loose result image (kept locally, published under assets/)
+*.pdf
+1730107977309.jpeg
+
+# Model weights
+*.pt
+*.pth
+
+# Data
+Fluo-N2DH-GOWT1*/
+PhC-C2DL-PSC*/
+*.tif
+*.tiff
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/

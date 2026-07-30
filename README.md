@@ -57,7 +57,9 @@ The pipeline runs in two stages.
 
 The loss is symmetric across the two views:
 
-$$\mathcal{L} = 0.5 \cdot \Big( \lVert p_{online} - z_{target} \rVert + \lVert z_{online} - p_{target} \rVert \Big)$$
+```math
+\mathcal{L} = 0.5 \cdot \Big( \lVert p_{online} - z_{target} \rVert + \lVert z_{online} - p_{target} \rVert \Big)
+```
 
 Augmentations applied independently to each view:
 
@@ -137,9 +139,16 @@ The epoch budget shrinks as the labeled set grows because the frames within each
 
 Results are reported with **SEG**, the segmentation metric of the Cell Tracking Challenge. It is the mean Jaccard index over all reference objects, where a predicted object counts as a match only if it covers more than half of the reference object:
 
-$$SEG = \frac{1}{|R|} \sum_{i=1}^{|R|} \sum_{j=1}^{|R|} J(R_i, S_j)$$
+```math
+SEG = \frac{1}{|R|} \sum_{i=1}^{|R|} \sum_{j=1}^{|R|} J(R_i, S_j)
+```
 
-$$J(R_i, S_j) = \begin{cases} \dfrac{|R_i \cap S_j|}{|R_i \cup S_j|} & |R_i \cap S_j| > 0.5 \cdot |R_i| \\\\ 0 & \text{otherwise} \end{cases}$$
+```math
+J(R_i, S_j) = \begin{cases}
+\dfrac{|R_i \cap S_j|}{|R_i \cup S_j|} & \text{if } |R_i \cap S_j| > 0.5 \cdot |R_i| \\
+0 & \text{otherwise}
+\end{cases}
+```
 
 where $R_i$ is the i-th reference object in the ground truth mask and $S_j$ the j-th object in the predicted mask. Because objects are matched one to one, SEG punishes merged cells heavily: two cells predicted as a single blob score zero for at least one of them. Both the prediction and the ground truth are passed through 8-connectivity connected components before scoring.
 

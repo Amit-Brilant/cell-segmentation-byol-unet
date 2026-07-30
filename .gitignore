@@ -26,3 +26,6 @@ env/
 .DS_Store
 .idea/
 .vscode/
+
+# Personal prep documents, not part of the repo
+*.docx

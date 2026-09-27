@@ -191,7 +191,7 @@ This repository preserves the code as it was submitted for the course. A few thi
 
 ## Authors
 
-**Amit Barilant** and **Alon Finestein**
+**Amit Brilant** and **Alon Finestein**
 
 Final project for the course *Deep Learning and its Applications to Signal and Image Processing and Analysis*, August 2024.
 

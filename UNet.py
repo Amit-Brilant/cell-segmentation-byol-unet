@@ -1,4 +1,4 @@
-# Amit Brilant, Alon Finestein
+# Amit Brilant, Alon Fainshtein
 
 import torch
 import torch.nn as nn
